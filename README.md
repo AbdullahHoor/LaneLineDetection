@@ -1,7 +1,8 @@
 
 # Lane Line Detection
 This project uses traditional computer vision techniques implemented in Python and OpenCV to identify lane lines on the road
-![u.png](attachment:u.png)
+<br>
+![alt test](u.png).
 ## Image Processing Pipeline
 The image processing pipeline can be divided into 3 stages which involves the following techniques
 1. Find Region Of Interest(ROI)
@@ -36,24 +37,30 @@ while cap.isOpened():
 
 #### 2. Grayscale Conversion:
 An RGB color image is a vector valued function across the image spatial domain.This is one of the essential steps before detecting lane edges. The reason for doing this conversion from multi-channelled image to single-channelled is because we are only concerned about the intensity data, which means we can safely ignore the colors.The grayscale step will help make the main lane lines stand out. 
-![gray.jpg](attachment:gray.jpg)
+<br>
+![gray.jpg](gray.jpg)
 
 #### 3. Canny Edge Detection
 After conversion of image to grayscale before isolating the region of interest. The next step is to run canny edge detection in OpenCV. 
 The Canny edge detector is a classic edge detection algorithm. It reduce the amount of information in an image down to the useful structural edges present. It Apply double threshold to determine potential edges.Track edge by hysteresis: Finalize the detection of edges by suppressing all the other edges that are weak and not connected to strong edges.
-![canny.png](attachment:canny.png)
+<br>
+![canny.png](canny.png)
 
 #### 4. Finding the Region Of Interest (ROI)
 The region which was found to contain the most amount of road and exclude the most amount of background across the test images was a three sided triangle.
+
 By finding the height and width of video frame we found all three coordinates of the triangle by using the 'image.shape'
 - Left bottom corner = (0,height)
 - Right bottom corner = (height, width)
 - Center corner = (height/2, width/2)
-![canny1.png](attachment:canny1.png)
- 
+
+<br>
+![canny1.png](canny1.png)
+
 #### 5.Masking the ROI
 Mask is created which is equal to the size of video frame. Excluding all content outside the ROI mask for the Canny edge detector then further reduces the information in the image to the lane line edges. This elimination of unwanted edges id done using 'cv2.fillpoly'
-![cropped..jpg](attachment:cropped..jpg)
+<br>
+![cropped..jpg](cropped..jpg)
 
 
 
@@ -96,7 +103,8 @@ def process(image):
 
 #### 7. Draw lines on blank Image
 A blank image is created which is excatly equal to the size of video frame. The lines on the blank image will be drawn on the coordinates found using hough transform.
-![liness.jpg](attachment:liness.jpg)
+<br>
+![liness.jpg](liness.jpg)
 
 
 ```python
@@ -114,4 +122,5 @@ def draw_lines(img, lines):
 #### 8. Detection of lines
 Video frame is superimposed with marked lines on blank image which will eventually create a frame showing detected lines.  
 Using the 'cv2.addWeighted' function is it possible to view the dectected lines superimposed on the input image set for all the video frames.
-![u.png](attachment:u.png)
+<br>
+![u.png](u.png)
